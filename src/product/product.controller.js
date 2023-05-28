@@ -3,23 +3,10 @@ import productModel from './product.model';
 export async function createProduct(req, res) {
   try {
     const product = req.body;
-    req.body.active = true;
-    const result = await productModel.create(product);
+    product.user_id = req.user._id;
+    product.active = true;
+    const result = await productModel.create(req.body);
     res.status(201).json(result);
-  } catch (err) {
-    res.status(400).json(err.message);
-  }
-}
-export async function readProductByUC(req, res) {
-  try {
-    const { user_id, category } = req.query;
-
-    const result = await productModel.find({
-      ...(user_id && { user_id: user_id }),
-      ...(category && { category: category }),
-      active: true,
-    });
-    result ? res.status(200).json(result) : res.sendStatus(404);
   } catch (err) {
     res.status(400).json(err.message);
   }
@@ -27,8 +14,25 @@ export async function readProductByUC(req, res) {
 
 export async function readProductById(req, res) {
   try {
-    const id = req.params.id;
-    const result = await productModel.findOne({ _id: id, active: true });
+    const _id = req.params.id;
+    const result = await productModel.findOne({ _id, active: true });
+    result ? res.status(200).json(result) : res.sendStatus(404);
+  } catch (err) {
+    res.status(400).json(err.message);
+  }
+}
+
+export async function readProducts(req, res) {
+  try {
+    const { name, user_id } = req.query;
+    const categories = req.query.categories?.split(',');
+
+    const result = await productModel.find({
+      ...(name && { name: new RegExp(name, 'i') }),
+      ...(user_id && { user_id: user_id }),
+      ...(categories && { categories: { $in: categories } }),
+      active: true,
+    });
     result ? res.status(200).json(result) : res.sendStatus(404);
   } catch (err) {
     res.status(400).json(err.message);

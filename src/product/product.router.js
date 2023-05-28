@@ -3,16 +3,17 @@ import {
   createProduct,
   deleteProduct,
   readProductById,
-  readProductByUC,
+  readProducts,
   updateProduct,
 } from './product.controller';
+import authenticate from '../auth/authenticate';
 
 const productRouter = Router();
 
-productRouter.post('/', createProduct);
-productRouter.get('/', readProductByUC);
-productRouter.get('/:id', readProductById);
-productRouter.patch('/:id', updateProduct);
-productRouter.delete('/:id', deleteProduct);
+productRouter.post('/', authenticate, createProduct);
+productRouter.get('/', readProducts);
+productRouter.get('/:_id', readProductById);
+productRouter.patch('/:_id', authenticate, updateProduct);
+productRouter.delete('/_:id', authenticate, deleteProduct);
 
 export default productRouter;

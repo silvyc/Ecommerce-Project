@@ -13,8 +13,6 @@ app.use('/user', userRouter);
 app.use('/product', productRouter);
 app.use('/order', orderRouter);
 
-//mongodb+srv://<username>:<password>@clusterdbe.cdgt9rh.mongodb.net/test
-
 mongoose
   .connect('mongodb+srv://cluster0.swmgm2y.mongodb.net/', {
     dbName: 'Cluster0',
