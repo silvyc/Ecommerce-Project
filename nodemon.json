@@ -1,0 +1,8 @@
+{
+  "events": {
+    "restart": "clear"
+  },
+  "env": {
+    "SECRET_KEY": "7bfab14158f4fa4157eb3af565a77bc0f6fb5ebb84fc025286fcf1e476f1c26b55f778e935ebd38a82a2f089d2c88982409c2c3f519d0de2e7d2db5cd7546d8c"
+  }
+}

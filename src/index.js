@@ -18,8 +18,8 @@ app.use('/order', orderRouter);
 mongoose
   .connect('mongodb+srv://cluster0.swmgm2y.mongodb.net/', {
     dbName: 'Cluster0',
-    user: 'silvyc',
-    pass: 'DsUTUMbI2R6sgkh9',
+    user: 'test',
+    pass: 'test',
   })
   .then(() => console.log('Database connected successfully'))
   .catch((err) => console.log(err));

@@ -1,4 +1,5 @@
 import userModel from './user.model';
+import jwt from 'jsonwebtoken';
 
 export async function createUser(req, res) {
   try {
@@ -11,13 +12,18 @@ export async function createUser(req, res) {
   }
 }
 
-export async function readUserByMP(req, res) {
+export async function readUserByCredentials(req, res) {
   try {
-    const { email, password } = req.params;
+    const { email, password } = req.query;
     const result = await userModel.findOne({ email, password, active: true });
-    result ? res.status(200).json(result) : res.sendStatus(404);
+
+    if (result) {
+      const token = jwt.sign(result.toJSON(), process.env.SECRET_KEY);
+      return res.status(200).json({ token: token });
+    }
+    res.sendStatus(404);
   } catch (err) {
-    res.status(400).json(err.message);
+    return res.status(400).json(err.message);
   }
 }
 
