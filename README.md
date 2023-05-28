@@ -1,4 +1,4 @@
-# Backend-Project
-By: Silvana Chain
+# Ecommerce Amazon clone-Backend Project
 
-Student Code: 200143952
+By: Silvana Chain, Juan Camilo Gamez y Paula Briceño.
+
