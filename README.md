@@ -1,4 +1,4 @@
-# Backend-Project
-By: Silvana Chain
+# Ecommerce Amazon clone-Backend Project
+Group name: Los PapitoMiRey
+By: Silvana Chain, Juan Camilo Gamez y Paula Briceño.
 
-Student Code: 200143952
