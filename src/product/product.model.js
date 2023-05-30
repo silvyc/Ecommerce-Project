@@ -15,6 +15,10 @@ const productSchema = new Schema(
         },
       },
     },
+    scores: {
+      type: [Number],
+      required: true,
+    },
     active: { type: Boolean, default: true },
   },
   { timestamps: true }

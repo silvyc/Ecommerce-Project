@@ -39,36 +39,57 @@ export async function readProducts(req, res) {
   }
 }
 
+export async function readUserCategories(req, res) {
+  try {
+    const { user_id } = req.params;
+    const result = await productModel.aggregate([
+      { $match: { user_id } },
+      { $unwind: '$categories' },
+      { $group: { _id: '$categories' } },
+    ]);
+    result.length ? res.status(200).json(result) : res.sendStatus(404);
+  } catch (err) {
+    res.status(400).json(err.message);
+  }
+}
+
 export async function updateProduct(req, res) {
   try {
-    const id = req.params.id;
-    const result = await productModel.findOneAndUpdate(
-      { _id: id, active: true },
+    const _id = req.params.id;
+    const result = await productModel.updateOne(
+      { _id, active: true },
       req.body,
       {
         runValidators: true,
       }
     );
-    result
-      ? res.status(200).json('Changes made to the product with id ' + id)
-      : res.sendStatus(404);
+    result ? res.status(200).json(result) : res.sendStatus(404);
   } catch (err) {
     res.status(400).json(err.message);
   }
 }
+
 export async function deleteProduct(req, res) {
   try {
-    const id = req.params.id;
+    const _id = req.params.id;
     const result = await productModel.findOneAndUpdate({
-      _id: id,
+      _id: _id,
       active: false,
     });
     result
       ? res
           .status(200)
-          .json('The product with the id ' + id + ' has been "deleted"')
+          .json('The product with the id ' + _id + ' has been "deleted"')
       : res.sendStatus(404);
   } catch (err) {
+    res.status(400).json(err.message);
+  }
+}
+
+export async function rateProduct(req, res) {
+  try {
+    const id = req.params.id;
+  } catch (error) {
     res.status(400).json(err.message);
   }
 }

@@ -1,3 +1,4 @@
+import { secretKey } from '../auth/authenticate';
 import userModel from './user.model';
 import jwt from 'jsonwebtoken';
 
@@ -18,18 +19,20 @@ export async function login(req, res) {
     const result = await userModel.findOne({ email, password, active: true });
 
     if (result) {
-      const token = jwt.sign(result.toJSON(), process.env.SECRET_KEY);
+      const token = jwt.sign(result.toJSON(), secretKey);
       return res.status(200).json({ token: token });
     }
+
     res.sendStatus(404);
   } catch (err) {
+    console.log(err.message);
     return res.status(400).json(err.message);
   }
 }
 
 export async function readUserById(req, res) {
   try {
-    const _id = req.params.id;
+    const _id = req.params._id;
     const result = await userModel.findOne({ _id, active: true });
     result ? res.status(200).json(result) : res.sendStatus(404);
   } catch (err) {

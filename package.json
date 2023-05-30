@@ -7,7 +7,8 @@
     "build": "babel src -d dist",
     "serve": "node dist/index",
     "start": "npm run build && npm run serve",
-    "dev": "nodemon --exec babel-node src/index"
+    "dev": "nodemon --exec babel-node src/index",
+    "test": "jest --watch"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +23,10 @@
     "@babel/core": "^7.21.4",
     "@babel/node": "^7.20.7",
     "@babel/preset-env": "^7.21.4",
+    "@types/jest": "^29.5.1",
+    "jest": "^29.5.0",
     "nodemon": "^2.0.22",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "supertest": "^6.3.3"
   }
 }
